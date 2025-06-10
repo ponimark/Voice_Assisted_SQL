@@ -7,13 +7,13 @@ from ollama import ChatResponse
 import speech_recognition as sr
 from pathlib import Path
 
-env_path = Path(r"C:\Users\samee\Desktop\Python\.ipynb_checkpoints\ollama_db.env")
+env_path = Path(r"give_yours")
 load_dotenv(dotenv_path=env_path)
 
 user = os.getenv("DB_USER")
 password = os.getenv("DB_PASS")
 
-db_url = f"postgresql+psycopg2://{user}:{password}@localhost:5432/analytics_db"
+db_url = f"postgresql+psycopg2://{user}:{password}@give_yours"
 engine = create_engine(db_url)
 
 
@@ -67,13 +67,13 @@ def speech_to_text():
 
 def clean_sql_response(assistant_response: str) -> str:
     cleaned = assistant_response.strip()
-    # Remove markdown code fences (``` or ```sql)
+    
     if cleaned.startswith("```"):
         lines = cleaned.splitlines()
-        # Remove first line if it's a code fence
+        
         if lines and lines[0].startswith("```"):
             lines = lines[1:]
-        # Remove last line if it's a closing code fence
+       
         if lines and lines[-1].strip() == "```":
             lines = lines[:-1]
         cleaned = "\n".join(lines).strip()
@@ -90,8 +90,8 @@ def english_to_sql(history,prompt):
     
     response: ChatResponse=chat(
         
-        model="mistral",# using the mistral model
-        messages=history,# list of messages
+        model="mistral",
+        messages=history,
     
     )
     assistant_response=response['message']['content']
@@ -106,12 +106,12 @@ def english_to_sql(history,prompt):
 def query_to_sql(query):
     try:
         if query.strip().lower().startswith("select"):
-            #if the query starts with select then pandas will execute the query
-            df=pd.read_sql(query,engine)#executing the query
+            
+            df=pd.read_sql(query,engine)y
             return df
         else:
-            #if the query does not start with select then we will use cursor to execute the query
-            with engine.begin() as conn: # handles commit and rollback automatically
+            
+            with engine.begin() as conn: 
                 conn.execute(query)
                 return "Query executed successfully"
     except Exception as e:
@@ -137,7 +137,7 @@ def main_voice():
         if not user_input:
             continue
         if user_input.lower() in ["exit", "quit"]:
-            print("👋 Goodbye!")
+            print(" Goodbye!")
             break
 
 
@@ -157,7 +157,7 @@ def main_voice():
         Otherwise, please explain what's wrong or how to improve it:\n""")
         feedback_input=input("Enter your feedback: ")
         if feedback_input.lower() == "yes":
-                break  # proceed to next user input
+                break 
         
         else:
             feedback=speech_to_text()
