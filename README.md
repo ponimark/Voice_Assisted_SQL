@@ -26,15 +26,7 @@ This project allows users to generate and execute SQL queries using voice comman
     cd <repository_directory>
     ```
 
-2.  **Create a virtual environment (recommended):**
-
-    ```bash
-    python -m venv venv
-    source venv/bin/activate  # On Linux/macOS
-    venv\Scripts\activate  # On Windows
-    ```
-
-3.  **Install the required packages:**
+2.  **Install the required packages:**
 
     ```bash
     pip install -r requirements.txt
@@ -51,12 +43,12 @@ This project allows users to generate and execute SQL queries using voice comman
     pandas==2.2.1
     ```
 
-4.  **Set up your PostgreSQL database:**
+3.  **Set up your PostgreSQL database:**
 
     -   Create a database and user with appropriate permissions.
     -   Update the `.env` file with your database credentials.
 
-5.  **Download and run the Mistral language model using Ollama:**
+4.  **Download and run the Mistral language model using Ollama:**
 
     ```bash
     ollama pull mistral
